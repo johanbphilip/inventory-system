@@ -12,7 +12,7 @@ const getAllItems = async (req, res) => {
     }
     res.status(200).json(inventoryItems);
 
-    console.log(inventoryItems);
+    console.log("🚀 ~ getAllItems ~ inventoryItems:", inventoryItems)
 
   } catch (error) {
     res.status(400).send({ message: error.message });
@@ -31,7 +31,7 @@ const getItemById = async (req, res) => {
     }
     res.status(200).json(item);
 
-    console.log(item);
+    console.log("🚀 ~ getItemById ~ item:", item)
 
   } catch (error) {
     res.status(400).send({ message: error.message });
@@ -51,8 +51,8 @@ const getItemByName = async (req, res) => {
       });
     }
     res.status(200).json(item);
-
-    console.log(item);
+    
+    console.log("🚀 ~ getItemByName ~ e:", e)
 
   } catch (error) {
     res.status(400).json({ message: error.message });

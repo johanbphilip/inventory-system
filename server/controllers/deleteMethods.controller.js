@@ -6,8 +6,8 @@ const deleteItem = async (req, res) => {
 
     const deletedItem = await InventoryItem.findByIdAndDelete(id);
     res.status(200).json(deletedItem);
-
-    console.log(deletedItem)
+    
+    console.log("🚀 ~ deleteItem ~ deletedItem:", deletedItem)
 
   } catch (error) {
     res.status(400).send({ message: error.message });

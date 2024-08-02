@@ -15,7 +15,7 @@ const createNewItem =  async (req, res) => {
     const newInventoryItem = await InventoryItem.create(req.body);
     res.status(200).json(newInventoryItem);
 
-    console.log(newInventoryItem);
+    console.log("🚀 ~ createNewItem ~ newInventoryItem:", newInventoryItem)
 
   } catch (error) {
     res.status(422).json({ message: error.message });

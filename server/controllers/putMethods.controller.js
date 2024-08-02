@@ -8,10 +8,11 @@ const updateItem = async (req, res) => {
     console.log(name, quantity, purchasePrice)
     
     const duplicate = await InventoryItem.findOne({ name: name });
-
+    
     if (duplicate && duplicate._id.toString() !== id) {
-      console.log(`Duplicate ID: ${duplicate._id}, name: ${duplicate.name}`);
-      console.log(`Requesting ID: ${id}`);
+      console.log("🚀 ~ updateItem ~ duplicate._id:", duplicate._id)
+      console.log("🚀 ~ updateItem ~ duplicate.name:", duplicate.name)
+      console.log("🚀 ~ updateItem ~ Requesting id:", id)
       console.log('A duplicate exists with a different ID')
       
       return res.status(400).json({ message: "An item with this name already exists" });
@@ -22,7 +23,7 @@ const updateItem = async (req, res) => {
     );
     res.status(200).json(updatedItem);
 
-    console.log(updatedItem);
+    console.log("🚀 ~ updateItem ~ updatedItem:", updatedItem)
 
   } catch (error) {
     res.status(500).send({ message: error.message });
