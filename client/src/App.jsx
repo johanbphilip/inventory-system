@@ -1,12 +1,10 @@
 import { useState } from "react";
-import TopNavBar from "./components/TopNavBar";
-import SideNavBar from "./components/SideNavBar";
+import NavigationBar from "./components/NavigationBar";
 
 function App() {
   return (
-    <div className="">
-      <TopNavBar />
-      <SideNavBar />
+    <div>
+      <NavigationBar />
     </div>
   );
 }
