@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion, useAnimationControls } from "framer-motion";
 import { MdOutlineAnalytics, MdOutlineInventory2 } from "react-icons/md";
 import { GoHome } from "react-icons/go";
@@ -97,16 +97,16 @@ const NavigationBar = () => {
         </button>
       </div>
       <div className="flex flex-col justify-center gap-[5rem] py-[2rem]">
-        <NavigationLink name="Inventory System">
+        <NavigationLink name="Inventory System" isOpen={isOpen}>
           <MdOutlineInventory2 className="stroke-inherit stroke-[0.75] min-w-8 h-8" />
         </NavigationLink>
-        <NavigationLink name="Dashboard">
+        <NavigationLink name="Dashboard" isOpen={isOpen}>
           <GoHome className="stroke-inherit stroke-[0.75] min-w-8 h-8" />
         </NavigationLink>
-        <NavigationLink name="Search Items">
+        <NavigationLink name="Search Items" isOpen={isOpen}>
           <IoIosSearch className="stroke-inherit stroke-[0.75] min-w-8 h-8" />
         </NavigationLink>
-        <NavigationLink name="Analytics">
+        <NavigationLink name="Analytics" isOpen={isOpen}>
           <MdOutlineAnalytics className="stroke-inherit stroke-[0.75] min-w-8 h-8" />
         </NavigationLink>
       </div>
