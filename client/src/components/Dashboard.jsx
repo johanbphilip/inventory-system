@@ -1,12 +1,12 @@
 import React from "react";
 import NavigationBar from "./NavigationBar";
-import SearchTable from "./SearchTable";
+import SearchTile from "./SearchTile";
 
 const Dashboard = () => {
   return (
     <div className="flex flex-row relative">
       <NavigationBar />
-      <SearchTable />
+      <SearchTile />
     </div>
   );
 };

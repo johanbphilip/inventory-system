@@ -1,13 +1,9 @@
 import Dashboard from "./components/Dashboard";
 import NavigationBar from "./components/NavigationBar";
-import SearchTable from "./components/SearchTable";
+import SearchTable from "./components/SearchTile";
 
 function App() {
-  return (
-    <div>
-      <Dashboard />
-    </div>
-  );
+  return <Dashboard />;
 }
 
 export default App;

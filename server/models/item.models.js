@@ -10,7 +10,7 @@ const InventoryItemSchema = mongoose.Schema(
       type: Number,
       required: [true, "Please enter the current stock in the inventory"],
     },
-    "Purchase Price": {
+    purchasePrice: {
       type: Number,
       required: false,
       default: 0,
