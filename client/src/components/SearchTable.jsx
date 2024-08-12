@@ -1,11 +1,11 @@
-import { useEffect } from "react";
-import Axios from "axios";
-const SearchTable = () => {
-  useEffect(() => {
-    Axios.get("http");
-  });
+import SearchBar from "./SearchBar";
 
-  return <div className="flex flex-col m-[10rem]">SearchTable</div>;
+const SearchTable = () => {
+  return (
+    <div className="flex flex-col m-[10rem] flex-grow w-full items-center">
+      <SearchBar placeholder="Search iventory items here" />
+    </div>
+  );
 };
 
 export default SearchTable;
