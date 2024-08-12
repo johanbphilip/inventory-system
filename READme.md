@@ -7,10 +7,10 @@ This program uses MongoDB for its database. I currently have the backend built o
 
 ## Client Side features
 
-- [ ] Create a basic dashboard with the search feature and a search table
+- [x] Create a basic dashboard with the search feature and a search table
 - [ ] Basic CRUD features to begin with
 - [ ] Turn the TopNavBar into just something with the name, logo and possibly settings if that comes up later on
-- [x ] Add in a SideNavBar that has access to possible other pages
+- [x] Add in a SideNavBar that has access to possible other pages
 - [ ] Maybe have a tile that shows count of how many items are high alert/low in stock
 - [ ] Login/Register Page later on
 - [ ] Create a dashboard that shows different feature (number of items, items below threshold, order from most to least expensive/etc/)
