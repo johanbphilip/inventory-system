@@ -3,13 +3,12 @@ const PORT = process.env.PORT;
 
 const connectDb = require("./dbConn");
 const mongoose = require("mongoose");
-const InventoryItem = require("./models/item.models");
+const cors = require("cors");
 
-const { getAllItems } = require('./controllers/getMethods.controller');
-const itemsRouter = require('./routes/items.router')
+const { getAllItems } = require("./controllers/getMethods.controller");
+const itemsRouter = require("./routes/items.router");
 const express = require("express");
 const app = express();
-
 
 // connect to MongoDB
 connectDb();
@@ -21,9 +20,10 @@ mongoose.connection.once("open", () => {
 
 // middleware
 app.use(express.json());
-app.use('/api/item', itemsRouter)
+app.use(cors());
+app.use("/api/item", itemsRouter);
 
-app.get('/', (req, res) => {
+app.get("/", (req, res) => {
   res.status(200).send(`Hello there `);
 });
 // shows all items
