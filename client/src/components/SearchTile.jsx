@@ -1,19 +1,24 @@
 import { useEffect, useState } from "react";
-import { instance } from "../axios";
+import { instance, createCancelToken } from "../axios";
+
 import SearchTable from "./SearchTable";
 import SearchBar from "./ui/SearchBar";
+import axios from "axios";
+import ErrorComponent from "./ui/ErrorComponent";
 
 const SearchTile = () => {
-  const [currentItems, setCurrentItems] = useState([]);
+  const [searchItems, setSearchItems] = useState(null);
   const [allItems, setAllItems] = useState([]);
+  const [cancelToken, setCancelToken] = useState(null);
 
+  // initial load when component is mounted
   useEffect(() => {
     const fetchAllItems = async () => {
       try {
         const response = await instance.get("/api/items");
         const data = response.data;
         setAllItems(data);
-        console.log(data);
+        console.log("data here: ", data);
         console.log("this is fetchAllItems: ", allItems);
       } catch (error) {
         console.log("Error fetching all items", error);
@@ -22,21 +27,46 @@ const SearchTile = () => {
     fetchAllItems();
   }, []);
 
-  const handleItemSearch = async () => {
-    const response = await instance.get("/api/item/");
-    const items = response.data;
-    setCurrentItems(items);
-    // note that currently teh state is being added to everytime there is a change in teh search, thats fine for now, but later, when on default, we want all the items shown in alpha order
-    // then when the search is going on, we can replace the entire state with the newest response (aka theres no need to spread currentState and then append, just complete replace)
-    console.log(currentItems);
+  // functionality for searching by name entered
+  const getItemByName = async (event) => {
+    // check if the cancel token has been set
+    event.preventDefault();
+    try {
+      if (cancelToken) {
+        // todo: cancel token is not being implemented properly as most requests are not being cancelled
+        cancelToken.cancel("Canceling previous request");
+      }
+      // creates a cancel token source and sets the cancel token
+      const source = createCancelToken();
+      setCancelToken(source);
+      // gets search value from the search bar
+      const queryValue = event.target.value;
+      // sends request and stores data
+      const response = await instance.get(`/api/item/?name=${queryValue}`, {
+        cancelToken: source.token,
+      });
+      const items = response.data;
+      setSearchItems(items);
+
+      console.log("this is the current response items", searchItems);
+    } catch (error) {
+      if (axios.isCancel(error)) {
+        console.log("Request canceled: ", error.message);
+      }
+      if (error.response.status === 400) {
+        setSearchItems([]);
+      }
+      console.log(error.response?.data.message);
+    }
   };
+
   return (
     <div className="flex flex-col m-[10rem] flex-grow w-full items-center">
       <SearchBar
         placeholder="Search inventory items here"
-        handleItemSearch={handleItemSearch}
+        getItemByName={getItemByName}
       />
-      <SearchTable allItems={allItems} />
+      <SearchTable items={searchItems ? searchItems : allItems} />
     </div>
   );
 };
