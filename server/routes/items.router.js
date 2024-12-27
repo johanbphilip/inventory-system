@@ -1,16 +1,18 @@
-const express = require('express');
-const router = express.Router();
+import express from "express";
 
-const createNewItem  = require("../controllers/postMethods.controller")
-const { getItemById, getItemByName } = require('../controllers/getMethods.controller')
-const updateItem = require("../controllers/putMethods.controller")
-const deleteItem  = require("../controllers/deleteMethods.controller")
+export const router = express.Router();
 
+import { createNewItem } from "../controllers/crud/postMethods.controller.js";
+import {
+  getItemById,
+  getItemByName,
+} from "../controllers/crud/getMethods.controller.js";
+import { updateItem } from "../controllers/crud/putMethods.controller.js";
+import { deleteItem } from "../controllers/crud/deleteMethods.controller.js";
 
-router.post('/', createNewItem);
-router.get('/:id', getItemById);
-router.get('/', getItemByName);
-router.put('/:id', updateItem);
-router.delete('/:id', deleteItem);
-
-module.exports = router;
+// logic/crud
+router.post("/", createNewItem);
+router.get("/:id", getItemById);
+router.get("/", getItemByName);
+router.put("/:id", updateItem);
+router.delete("/:id", deleteItem);
