@@ -1,5 +1,5 @@
 import { FaGoogle } from 'react-icons/fa';
-import { useLogin } from '../customHooks/useLogin';
+import { useLogin } from '../hooks/useLogin';
 
 export const LoginPage = () => {
   const {

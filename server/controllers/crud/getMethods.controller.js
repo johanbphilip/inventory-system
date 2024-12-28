@@ -2,22 +2,24 @@ import { supabase } from "../../utils/dbConn.js"
 
 export const getAllItems = async (req, res) => {
   try {
-    const { data, error } = await supabase.from("inventory").select();
+    console.log("recieved request")
+    const { data, error } = await supabase.from("inventory").select().order('item_name', { ascending: true });
     console.log(data);
     if (!data) {
       console.log("Empty inventory");
-
+      
       return res
-        .status(400)
-        .json({ message: "There are no items in inventory right now" })
+      .status(400)
+      .json({ message: "There are no items in inventory right now" })
     }
     if (error) {
-      return res.status(400).json({error})
+      console.log("Error, sending message back")
+      return res.status(400).json({ error, message: error.message })
     }
-
-    return res.status(200).json(data);
+    console.log("Success, sending data back")
+    return res.status(200).json({ data, valid: true });
   } catch (error) {
-    return res.status(400).send({ message: error.message });
+    return res.status(400).send({ error, message: error.message });
   }
 };
 
@@ -62,7 +64,7 @@ export const getItemByName = async (req, res) => {
     if (error) {
       return res.status(400).json({error, message: error.message});
     }
-    res.status(200).json(data);
+    res.status(200).json({ data, valid: true});
   } catch (error) {
     res.status(400).json({ error, message: error.message });
   }

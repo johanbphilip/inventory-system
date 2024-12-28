@@ -1,6 +1,6 @@
 import React from 'react';
 import NavigationBar from '../components/NavigationBar';
-import SearchTile from '../components/SearchTile';
+import SearchTile from '../pages/SearchTile';
 
 const Dashboard = () => {
   return (

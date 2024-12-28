@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSignup } from '../customHooks/useSignup';
+import { useSignup } from '../hooks/useSignup';
 
 export const SignupPage = () => {
   const {

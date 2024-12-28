@@ -54,20 +54,22 @@ export const signup = async (req, res) => {
 
 export const login = async (req, res) => {
   const { email, password } = req.body;
-
+  console.log("extracted email and pass")
   try {
     const { data, error } = await auth.signInWithPassword({
       email,
       password,
     });
-  
+    
     if (error) {
       console.log(error.message);
+      console.log("Returning 401")
       return res.status(401).json({ message: error.message });
     } 
-
+    
     const { access_token, refresh_token } = data.session
-  
+    console.log("extracted tokens")
+    
     
     res.cookie('refresh_token', refresh_token, {
       httpOnly: true,
@@ -76,12 +78,13 @@ export const login = async (req, res) => {
       maxAge: 7 * 24 * 3600 * 1000, 
     });
     res.cookie('access_token', access_token, {
-    httpOnly: true,
+      httpOnly: true,
       secure: process.env.NODE_ENV === 'production', 
       sameSite: 'Strict', 
-       maxAge: 3600 * 1000, 
-
-  })
+      maxAge: 3600 * 1000, 
+      
+    })
+    console.log("Returning 200")
     return res.status(200).json({
       message: "Login Successful",
       user: data.user

@@ -19,7 +19,7 @@ app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
 // middleware
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
+app.use(cors({origin: 'http://localhost:5173', credentials: true }));
 
 app.use('/api/*', authenticateRequest);
 app.use("/api/item", itemsRouter);
@@ -29,4 +29,3 @@ app.get("/", (req, res) => {
   res.status(200).send(`Hello there `);
 });
 // shows all items
-app.get("/api/items", getAllItems);

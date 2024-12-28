@@ -1,41 +1,31 @@
-import React from "react";
+import { FaRegEdit } from 'react-icons/fa';
 
-const SearchTable = ({ items }) => {
-  const rowClassName = "px-4 py-2";
-  if (items.length === 0) {
-    return (
-      <div className="m-16 text-red-600 font-bold text-lg">
-        This item does not exist, try again
-      </div>
-    );
-  } else {
-    return (
-      <table className="m-16 border table-auto w-full">
-        <thead className="border p-4">
-          <tr className="bg-neutral-900 text-gray-50 text-left">
-            <th className={rowClassName}>Id</th>
-            <th className={rowClassName}>Item</th>
-            <th className={rowClassName}>Purchase Price</th>
-            <th className={rowClassName}>Quantity</th>
-            <th className={rowClassName}>Added</th>
-            <th className={rowClassName}>Updated</th>
+export const SearchTable = ({ items }) => {
+  return (
+    <table className="mt-10 w-full text-left font-thin">
+      <thead className="">
+        <tr className="bg-slate-400 text-white">
+          <th className="mb-4 w-1/6 p-2 font-normal">Item</th>
+          <th className="mb-4 w-1/6 p-2 font-normal">Quantity</th>
+          <th className="mb-4 p-2 font-normal">Status</th>
+          <th className="mb-4 w-1/6 p-2 font-normal">Purchase Price</th>
+          <th className="font-normal"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {items.map((item) => (
+          <tr key={item.id} className="hover:bg-gray-100">
+            <td className="w-1/6 p-2">{item.item_name}</td>
+            <td className="w-1/6 p-2">{item.quantity}</td>
+            <td className="p-2">Add an enum based on the stored key value</td>
+            <td className="w-1/6 p-2">{`$ ${item.purchase_price}`}</td>
+            <td className="place-items-center">
+              <FaRegEdit />
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          {items.map((item, index) => (
-            <tr key={item._id} className="align-middle">
-              <td className={rowClassName}>{index + 1}</td>
-              <td className={rowClassName}>{item.name}</td>
-              <td className={rowClassName}>{item.purchasePrice}</td>
-              <td className={rowClassName}>{item.quantity}</td>
-              <td className={rowClassName}>{item.createdAt}</td>
-              <td className={rowClassName}>{item.updatedAt}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    );
-  }
+        ))}
+        <tr></tr>
+      </tbody>
+    </table>
+  );
 };
-
-export default SearchTable;
