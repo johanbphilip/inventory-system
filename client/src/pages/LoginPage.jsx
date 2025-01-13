@@ -1,5 +1,5 @@
 import { FaGoogle } from 'react-icons/fa';
-import { useLogin } from '../hooks/useLogin';
+import { UseLogin } from '../hooks/useLogin';
 
 export const LoginPage = () => {
   const {
@@ -11,7 +11,7 @@ export const LoginPage = () => {
     totalError,
     isLoading,
     handleUserLogin,
-  } = useLogin();
+  } = UseLogin();
   return (
     <form
       className="flex w-1/2 flex-col items-center gap-6 text-white"
@@ -29,7 +29,7 @@ export const LoginPage = () => {
           value={email}
           placeholder="name@example.com"
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full rounded-md border border-gray-500 bg-transparent px-3 py-2 placeholder:font-light active:border-white"
+          className="w-full rounded-md border border-gray-500 bg-transparent px-3 py-2 placeholder:font-light focus:border-white focus:outline-none"
         />
         {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
       </div>

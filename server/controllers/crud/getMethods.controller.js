@@ -3,7 +3,7 @@ import { supabase } from "../../utils/dbConn.js"
 export const getAllItems = async (req, res) => {
   try {
     console.log("recieved request")
-    const { data, error } = await supabase.from("inventory").select().order('item_name', { ascending: true });
+    const { data, error } = await supabase.from("inventory").select().order('itemName', { ascending: true });
     console.log(data);
     if (!data) {
       console.log("Empty inventory");
@@ -47,10 +47,10 @@ export const getItemById = async (req, res) => {
 
 export const getItemByName = async (req, res) => {
   try {
-    const { name } = req.body;
-    console.log(name);
+    const { itemName } = req.body;
+    console.log(itemName);
 
-    const { data, error } = await supabase.from("inventory").select().ilike('item_name', `%${name}%`).order("item_name", { ascending: true });
+    const { data, error } = await supabase.from("inventory").select().ilike('itemName', `%${itemName}%`).order("itemName", { ascending: true });
 
   
     console.log("server-side log: ", data);
@@ -69,3 +69,34 @@ export const getItemByName = async (req, res) => {
     res.status(400).json({ error, message: error.message });
   }
 };
+
+export const getFavouriteItems = async (req,res) => {
+  try {
+  const { data, error } = await supabase.from('inventory').select().eq('isFavourite', true);
+
+  if (error) {
+    return res.status(404).json({error, message: error.message});
+  }
+  res.status(200).json({data});
+  } catch (error) {
+    res.status(400).json({error, message:error.message});
+  }
+}
+export const getItemLevels = async (req, res) => {
+  try {
+    const { data, error } = await supabase.from('inventory').select();
+
+    const levels = [
+      data.filter((item) => item.status === 'CRITICAL').length,
+      data.filter((item) => item.status === 'SUFFICIENT').length,
+      data.filter((item) => item.status === 'LOW').length,
+    ]
+    if (error) {
+      return res.status(404).json({error, message: error.message});
+    }
+    res.status(200).json({levels});
+  } catch(error) {
+    res.status(400).json({error, message:error.message});
+
+  }
+}

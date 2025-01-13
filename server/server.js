@@ -28,4 +28,3 @@ app.use("/auth", authRouter);
 app.get("/", (req, res) => {
   res.status(200).send(`Hello there `);
 });
-// shows all items

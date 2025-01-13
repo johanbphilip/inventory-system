@@ -1,6 +1,5 @@
- import {supabase } from "../../utils/dbConn.js"
+ import { supabase } from "../../utils/dbConn.js"
 
-const auth = supabase.auth;
 
 const baseUrl = "http://localhost:8080";
 
@@ -9,7 +8,7 @@ export const signup = async (req, res) => {
   const { email, password, firstName, lastName, organization } = req.body;
 
   try {
-    const { data, error } = await auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -56,7 +55,7 @@ export const login = async (req, res) => {
   const { email, password } = req.body;
   console.log("extracted email and pass")
   try {
-    const { data, error } = await auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
@@ -96,7 +95,7 @@ export const login = async (req, res) => {
 
 export const loginWithOAuth = async (req, res) => {
   try {
-    const { data, error } = await auth.signInWithOAuth({
+    const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options:{
         redirectTo: baseUrl,

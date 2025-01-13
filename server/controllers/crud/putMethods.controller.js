@@ -3,10 +3,21 @@ import { supabase } from "../../utils/dbConn.js";
 export const updateItem = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, quantity, purchasePrice } = req.body;
-    console.log(name, quantity, purchasePrice);
+    const { itemName, quantity, purchasePrice, reorderPoint, storageLocation, category, status  } = req.body;
+    // move to frontend
+    // let status;
+    // if (quantity > watchPoint) {
+    //   status = 'High'
+    // } else if (quantity = watchPoint){
+    //   status = 'Sufficient'
+    // } else if (quantity < watchPoint) {
+    //   status = 'Low'
+    // } else if (quantity === 0) {
+    //   status = 'Critical'
+    // }
+    console.log(itemName, quantity, purchasePrice);
 
-    const {data, error} = await supabase.from("inventory").update( {item_name: name, quantity: quantity, purchase_price: purchasePrice,  }).eq('id',id).select()
+    const {data, error} = await supabase.from("inventory").update( {itemName: itemName, quantity: quantity, purchasePrice: purchasePrice,/**  status: status */ reorderPoint: reorderPoint, status:status, storageLocation:storageLocation, category:category}).eq('id',id).select()
 
     if (error) {
       console.log(error)

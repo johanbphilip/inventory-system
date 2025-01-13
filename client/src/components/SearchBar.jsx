@@ -1,18 +1,16 @@
 import { IoIosSearch } from 'react-icons/io';
 
-const SearchBar = ({ placeholder, getItemByName, query }) => {
+export const SearchBar = ({ placeholder, getItemByName, query }) => {
   return (
-    <div className="flex flex-row items-center justify-center gap-2 rounded px-4 py-1 align-middle">
-      <IoIosSearch className="size-6" />
+    <div className="focus:border-quantHighlight flex flex-row items-center justify-center gap-2 rounded-md border px-3 align-middle">
+      <IoIosSearch className="size-5" />
       <input
         type="search"
         value={query}
         placeholder={placeholder}
-        className="w-full border-solid border-red-500 px-4 py-1 font-thin"
+        className="w-full rounded-md border-solid border-red-500 px-3 py-1 font-thin focus:outline-none"
         // onChange={(event) => getItemByName(event)}
       ></input>
     </div>
   );
 };
-
-export default SearchBar;

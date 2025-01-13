@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSignup } from '../hooks/useSignup';
+import { UseSignup } from '../hooks/useSignup';
 
 export const SignupPage = () => {
   const {
@@ -17,7 +17,7 @@ export const SignupPage = () => {
     totalError,
     isLoading,
     handleUserSignup,
-  } = useSignup();
+  } = UseSignup();
   return (
     <form
       className="flex w-1/2 flex-col items-center gap-6 text-white"
@@ -39,7 +39,7 @@ export const SignupPage = () => {
             value={firstName}
             placeholder="First Name"
             onChange={(e) => setFirstName(e.target.value)}
-            className="w-full rounded-md border border-gray-500 bg-transparent px-3 py-2 placeholder:font-light active:border-white"
+            className="w-full rounded-md border border-gray-500 bg-transparent px-3 py-2 placeholder:font-light focus:border-white focus:outline-none"
           />
           {errors.firstName && (
             <p className="text-sm text-red-500">{errors.firstName}</p>
@@ -53,7 +53,7 @@ export const SignupPage = () => {
             value={lastName}
             placeholder="Last Name"
             onChange={(e) => setLastName(e.target.value)}
-            className="w-full rounded-md border border-gray-500 bg-transparent px-3 py-2 placeholder:font-light active:border-white"
+            className="w-full rounded-md border border-gray-500 bg-transparent px-3 py-2 placeholder:font-light focus:border-white focus:outline-none"
           />
           {errors.lastName && (
             <p className="text-sm text-red-500">{errors.lastName}</p>
@@ -69,7 +69,7 @@ export const SignupPage = () => {
           value={organization}
           placeholder="Quantify IMS"
           onChange={(e) => setOrganization(e.target.value)}
-          className="w-full rounded-md border border-gray-500 bg-transparent px-3 py-2 placeholder:font-light active:border-white"
+          className="w-full rounded-md border border-gray-500 bg-transparent px-3 py-2 placeholder:font-light focus:border-white focus:outline-none"
         />
       </div>
       <div className="flex w-full flex-col items-start gap-2">
@@ -80,7 +80,7 @@ export const SignupPage = () => {
           value={email}
           placeholder="name@example.com"
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full rounded-md border border-gray-500 bg-transparent px-3 py-2 placeholder:font-light active:border-white"
+          className="w-full rounded-md border border-gray-500 bg-transparent px-3 py-2 placeholder:font-light focus:border-white focus:outline-none"
         />
         {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
       </div>
@@ -94,7 +94,7 @@ export const SignupPage = () => {
           value={password}
           placeholder=""
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full rounded-md border border-gray-500 bg-transparent px-3 py-2 placeholder:font-light"
+          className="w-full rounded-md border border-gray-500 bg-transparent px-3 py-2 placeholder:font-light focus:border-white focus:outline-none"
         />
         {errors.password && (
           <p className="text-sm text-red-500">{errors.password}</p>

@@ -2,9 +2,10 @@ import { supabase } from "../../utils/dbConn.js";
 
 export const createNewItem = async (req, res) => {
   try {
-    const { name, quantity, purchasePrice } = req.body;
+    const { itemName, quantity, purchasePrice, reorderPoint, category, storageLocation, status, statusColor  } = req.body;
 
-    const { data, error } = await supabase.from("inventory").insert({item_name: name, quantity:quantity, purchase_price: purchasePrice}).select("*")
+
+    const { data, error } = await supabase.from("inventory").insert({itemName: itemName, quantity: quantity, purchasePrice: purchasePrice, status: status,reorderPoint: reorderPoint, category:category, storageLocation:storageLocation, statusColor:statusColor }).select("*")
     console.log(data)
 
     if (error) {

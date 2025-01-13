@@ -1,42 +1,34 @@
 import { useEffect, useState } from 'react';
 import { server } from '../axios';
 
-export const UseGetAllItems = () => {
-  const [items, setItems] = useState([]);
+export const UseGetAllFavourites = () => {
+  const [favouriteItems, setFavouriteItems] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [favouriteItems, setFavouriteItems] = useState([]);
 
-  const getAllItems = async () => {
+  const getAllFavourites = async () => {
     try {
       setIsLoading(true);
-      const { data, message, valid, error } = (
-        await server.get('/api/item/all')
+      const { data, message, error } = (
+        await server.get('/api/item/favourites')
       ).data;
       setIsLoading(false);
-
       if (error) {
         setErrorMessage(message);
         return;
       }
       console.log('data is valid: ', data);
 
-      setItems(data);
+      setFavouriteItems(data);
       setErrorMessage('');
     } catch (error) {
       setIsLoading(false);
       setErrorMessage('An error occured while fetching data');
       console.log(error);
-      return;
     }
   };
-
   useEffect(() => {
-    getAllItems();
+    getAllFavourites();
   }, []);
-  useEffect(() => {
-    setFavouriteItems(items.filter((item) => item.isFavourite === true));
-  }, [items]);
-
-  return { items, errorMessage, isLoading, favouriteItems, getAllItems };
+  return { favouriteItems, errorMessage, isLoading, getAllFavourites };
 };

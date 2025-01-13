@@ -1,6 +1,6 @@
 import { server, createCancelToken } from '../axios';
 
-export const getItemByName = async (event) => {
+export const UseGetItemByName = async (event) => {
   // check if the cancel token has been set
   event.preventDefault();
   try {

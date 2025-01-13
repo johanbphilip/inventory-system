@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { server } from '../axios';
 
-export const useSignup = () => {
+export const UseSignup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -14,7 +14,6 @@ export const useSignup = () => {
     // firstName: '',
     // lastName: '',
   });
-  const [totalError, setTotalError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -80,12 +79,10 @@ export const useSignup = () => {
         organization,
       });
       console.log('Signup successful:', data);
-      navigate('/');
+      navigate('/dashboard');
     } catch (error) {
-      setTotalError((newErrors.password = error.response?.data?.message));
-      console.log('Log from handleUserSignup:', error);
-      console.log(error.message);
-      setTotalError('');
+      newErrors.password = error.response?.data?.message;
+      setErrors(newErrors);
     } finally {
       setIsLoading(false);
     }
@@ -102,7 +99,6 @@ export const useSignup = () => {
     organization,
     setOrganization,
     errors,
-    totalError,
     isLoading,
     handleUserSignup,
   };

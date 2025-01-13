@@ -10,6 +10,19 @@ export default {
       lg: '1024px', // Default Tailwind breakpoint
       xl: '1280px', // Default Tailwind breakpoint
     },
+    extend: {
+      fontFamily: {
+        primary: ['Geist', 'sans-serif'],
+        secondary: ['Open Sans', 'sans-serif'],
+        tertiary: ['Montserrat', 'sans-serif'],
+      },
+      colors: {
+        quantDark: '#121212',
+        quantHighlight: '#a272ff',
+        quantGray: '#e0dddd',
+      },
+    },
   },
+
   plugins: [],
 };

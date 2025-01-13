@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { server } from '../axios';
 import { useNavigate } from 'react-router';
 
-export const useLogin = () => {
+export const UseLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({ email: '', password: '' });
@@ -45,7 +45,7 @@ export const useLogin = () => {
     try {
       const { data } = await server.post('/auth/login', { email, password });
       console.log('Login successful:', data);
-      navigate('/');
+      navigate('/dashboard');
     } catch (error) {
       console.log('Log from handleUserLogin:', error);
       console.log(error.response?.data.message);
