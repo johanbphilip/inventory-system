@@ -17,16 +17,17 @@ export const UseGetAllItems = () => {
 
       if (error) {
         setErrorMessage(message);
+        setIsLoading(false);
         return;
       }
-      console.log('data is valid: ', data);
+      console.log('UseGetAllItems data: ', data);
 
       setItems(data);
       setErrorMessage('');
     } catch (error) {
-      setIsLoading(false);
       setErrorMessage('An error occured while fetching data');
-      console.log(error);
+      setIsLoading(false);
+      console.log('Error in UseGetAllItems:', error);
       return;
     }
   };

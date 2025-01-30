@@ -1,22 +1,25 @@
-import { supabase } from "../../utils/dbConn.js"
+import { supabase } from '../../utils/dbConn.js';
 
 export const getAllItems = async (req, res) => {
   try {
-    console.log("recieved request")
-    const { data, error } = await supabase.from("inventory").select().order('itemName', { ascending: true });
+    console.log('recieved request');
+    const { data, error } = await supabase
+      .from('inventory')
+      .select()
+      .order('itemName', { ascending: true });
     console.log(data);
     if (!data) {
-      console.log("Empty inventory");
-      
+      console.log('Empty inventory');
+
       return res
-      .status(400)
-      .json({ message: "There are no items in inventory right now" })
+        .status(400)
+        .json({ message: 'There are no items in inventory right now' });
     }
     if (error) {
-      console.log("Error, sending message back")
-      return res.status(400).json({ error, message: error.message })
+      console.log('Error, sending message back');
+      return res.status(400).json({ error, message: error.message });
     }
-    console.log("Success, sending data back")
+    console.log('Success, sending data back');
     return res.status(200).json({ data, valid: true });
   } catch (error) {
     return res.status(400).send({ error, message: error.message });
@@ -26,20 +29,22 @@ export const getAllItems = async (req, res) => {
 export const getItemById = async (req, res) => {
   try {
     const { id } = req.params;
-    const {data, error} = await supabase.from("inventory").select().eq('id',id); //
+    const { data, error } = await supabase
+      .from('inventory')
+      .select()
+      .eq('id', id); //
 
     if (!data || data.length === 0) {
-      console.log("Item not found");
+      console.log('Item not found');
       return res
         .status(409)
-        .json({ message: "This item does not exist, please try another id." });
+        .json({ message: 'This item does not exist, please try another id.' });
     }
     if (error) {
-      return res.status(400).json({error, message: error.message});
+      return res.status(400).json({ error, message: error.message });
     }
 
     return res.status(200).json(data);
-
   } catch (error) {
     return res.status(500).json({ error, message: error.message });
   }
@@ -50,38 +55,44 @@ export const getItemByName = async (req, res) => {
     const { itemName } = req.body;
     console.log(itemName);
 
-    const { data, error } = await supabase.from("inventory").select().ilike('itemName', `%${itemName}%`).order("itemName", { ascending: true });
+    const { data, error } = await supabase
+      .from('inventory')
+      .select()
+      .ilike('itemName', `%${itemName}%`)
+      .order('itemName', { ascending: true });
 
-  
-    console.log("server-side log: ", data);
+    console.log('server-side log: ', data);
 
     if (!data || data.length === 0) {
       return res.status(400).send({
         message:
-          "This item does not exist! Please check spelling or try another item",
+          'This item does not exist! Please check spelling or try another item',
       });
     }
     if (error) {
-      return res.status(400).json({error, message: error.message});
+      return res.status(400).json({ error, message: error.message });
     }
-    res.status(200).json({ data, valid: true});
+    res.status(200).json({ data, valid: true });
   } catch (error) {
     res.status(400).json({ error, message: error.message });
   }
 };
 
-export const getFavouriteItems = async (req,res) => {
+export const getFavouriteItems = async (req, res) => {
   try {
-  const { data, error } = await supabase.from('inventory').select().eq('isFavourite', true);
+    const { data, error } = await supabase
+      .from('inventory')
+      .select()
+      .eq('isFavourite', true);
 
-  if (error) {
-    return res.status(404).json({error, message: error.message});
-  }
-  res.status(200).json({data});
+    if (error) {
+      return res.status(404).json({ error, message: error.message });
+    }
+    res.status(200).json({ data });
   } catch (error) {
-    res.status(400).json({error, message:error.message});
+    res.status(400).json({ error, message: error.message });
   }
-}
+};
 export const getItemLevels = async (req, res) => {
   try {
     const { data, error } = await supabase.from('inventory').select();
@@ -90,13 +101,12 @@ export const getItemLevels = async (req, res) => {
       data.filter((item) => item.status === 'CRITICAL').length,
       data.filter((item) => item.status === 'SUFFICIENT').length,
       data.filter((item) => item.status === 'LOW').length,
-    ]
+    ];
     if (error) {
-      return res.status(404).json({error, message: error.message});
+      return res.status(404).json({ error, message: error.message });
     }
-    res.status(200).json({levels});
-  } catch(error) {
-    res.status(400).json({error, message:error.message});
-
+    res.status(200).json({ levels });
+  } catch (error) {
+    res.status(400).json({ error, message: error.message });
   }
-}
+};

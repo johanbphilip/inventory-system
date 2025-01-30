@@ -9,11 +9,18 @@ import { UseGetAllItems } from '../hooks/UseGetAllItems';
 import { server } from '../axios';
 import { ItemSideBar } from './ItemSideBar';
 
-const SearchTile = ({ favouriteItems, tableHeader }) => {
-  const { items, errorMessage, isLoading, getAllItems } = UseGetAllItems();
+const SearchTile = ({
+  items,
+  errorMessage,
+  isLoading,
+  refreshFunction,
+  tableHeader,
+}) => {
+  // const { items, errorMessage, isLoading, getAllItems } = UseGetAllItems();
+  const [displayItems, setDisplayItems] = useState(items);
   const [isAddItemOpen, setIsAddItemOpen] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
-
+  console.log(displayItems);
   const [editingItem, setEditingItem] = useState(null);
   //select functionality
   const toggleSelectedItem = (itemId) => {
@@ -22,13 +29,13 @@ const SearchTile = ({ favouriteItems, tableHeader }) => {
     setSelectedItems((prev) =>
       prev.includes(itemId)
         ? prev.filter((id) => id !== itemId)
-        : [...prev, itemId]
+        : [...prev, itemId],
     );
   };
 
   const selectAllItems = () => {
     // setSelectedItems to be the id of all the items in items
-    setSelectedItems(items.map((item) => item.id));
+    setSelectedItems(displayItems.map((item) => item.id));
   };
 
   const clearSelection = () => {
@@ -39,11 +46,11 @@ const SearchTile = ({ favouriteItems, tableHeader }) => {
   };
   // refresh page on save
   const onSaveAddItem = async () => {
-    await getAllItems();
+    await refreshFunction();
   };
   const onSaveEditItem = async () => {
     // setEditingItem(null);
-    await getAllItems();
+    await refreshFunction();
   };
   const handleDeleteItem = async () => {
     const deletePromises = selectedItems.map(async (item) => {
@@ -57,19 +64,16 @@ const SearchTile = ({ favouriteItems, tableHeader }) => {
     });
     const results = await Promise.all(deletePromises);
 
-    await getAllItems();
+    await refreshFunction();
   };
   return (
     <div className="flex w-full flex-row">
       <div className="flex w-full flex-col items-center gap-5 px-4 py-5">
         <div className="flex w-full items-center justify-between">
           <div className="flex items-center gap-2">
-            <h2 className="text-2xl font-bold">
-              {' '}
-              {tableHeader ? tableHeader : 'Add Items'}
-            </h2>
+            <h2 className="text-2xl font-bold"> {tableHeader}</h2>
             <h2 className="text-quantGray text-2xl font-medium">
-              {favouriteItems ? favouriteItems.length : items.length}
+              {displayItems.length}
             </h2>
           </div>
           <div className="flex gap-4">
@@ -97,9 +101,9 @@ const SearchTile = ({ favouriteItems, tableHeader }) => {
           </div>
         </div>
         {isLoading && <p>Finding data...</p>}
-        {items && items.length > 0 && (
+        {displayItems && displayItems.length > 0 && (
           <SearchTable
-            items={favouriteItems ? favouriteItems : items}
+            items={displayItems}
             toggleSelectedItem={toggleSelectedItem}
             selectAllItems={selectAllItems}
             clearSelection={clearSelection}

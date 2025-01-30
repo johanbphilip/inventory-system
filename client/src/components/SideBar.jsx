@@ -60,7 +60,7 @@ export const SideBar = () => {
             My Inventory
           </h2>
           <NavLink
-            to={'/transaction-history'}
+            to={'/history'}
             className="hover:bg-quantHighlight flex w-full items-center gap-4 rounded-md px-3 py-2 text-base font-normal transition-all duration-200 ease-in-out hover:text-white"
           >
             <RiHistoryFill className="size-6" />

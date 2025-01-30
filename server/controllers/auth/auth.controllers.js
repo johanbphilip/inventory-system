@@ -1,8 +1,6 @@
- import { supabase } from "../../utils/dbConn.js"
+import { supabase } from '../../utils/dbConn.js';
 
-
-const baseUrl = "http://localhost:8080";
-
+const baseUrl = 'http://localhost:8080';
 
 export const signup = async (req, res) => {
   const { email, password, firstName, lastName, organization } = req.body;
@@ -16,90 +14,92 @@ export const signup = async (req, res) => {
           first_name: firstName,
           last_name: lastName,
           organization: organization,
-        }
-      }
+        },
+      },
     });
     // implement this error check in the frontend too
     if (error) {
-      if (error.code === 'weak_password'){
-        return res.status(422).json({ error, message:'Password must contain atleast 1 uppercase letter, 1 lowercase letter, 1 digit and 1 symbol' });
+      if (error.code === 'weak_password') {
+        return res.status(422).json({
+          error,
+          message:
+            'Password must contain atleast 1 uppercase letter, 1 lowercase letter, 1 digit and 1 symbol',
+        });
       } else {
         return res.status(error.status).json({ error, message: error.message });
       }
     }
-    const { access_token, refresh_token } = data.session
+    const { access_token, refresh_token } = data.session;
 
     res.cookie('access_token', access_token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', 
-      sameSite: 'Strict', 
-      maxAge: 3600 * 1000, 
-    })
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'Strict',
+      maxAge: 3600 * 1000,
+    });
     res.cookie('refresh_token', refresh_token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', 
-      sameSite: 'Strict', 
-      maxAge: 7 * 24 * 3600 * 1000, 
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'Strict',
+      maxAge: 7 * 24 * 3600 * 1000,
     });
 
     return res.status(200).json({
-      message: "Login Successful",
-      user: data.user
+      message: 'Login Successful',
+      user: data.user,
     });
   } catch (error) {
-    res.status(500).json(error)
+    res.status(500).json(error);
   }
 };
 
 export const login = async (req, res) => {
   const { email, password } = req.body;
-  console.log("extracted email and pass")
+  console.log('extracted email and pass');
   try {
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
-    
+
     if (error) {
       console.log(error.message);
-      console.log("Returning 401")
+      console.log('Returning 401');
       return res.status(401).json({ message: error.message });
-    } 
-    
-    const { access_token, refresh_token } = data.session
-    console.log("extracted tokens")
-    
-    
+    }
+
+    const { access_token, refresh_token } = data.session;
+    console.log('extracted tokens');
+
     res.cookie('refresh_token', refresh_token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', 
-      sameSite: 'Strict', 
-      maxAge: 7 * 24 * 3600 * 1000, 
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'Strict',
+      maxAge: 7 * 24 * 3600 * 1000,
     });
     res.cookie('access_token', access_token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', 
-      sameSite: 'Strict', 
-      maxAge: 3600 * 1000, 
-      
-    })
-    console.log("Returning 200")
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'Strict',
+      maxAge: 3600 * 1000,
+    });
+    console.log('Returning 200');
     return res.status(200).json({
-      message: "Login Successful",
-      user: data.user
+      message: 'Login Successful',
+      user: data.user,
     });
   } catch (error) {
-    res.status(500).json(error)
+    res.status(500).json(error);
   }
 };
 
 export const loginWithOAuth = async (req, res) => {
   try {
     const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options:{
+      provider: 'google',
+      options: {
         redirectTo: baseUrl,
-      }
+      },
     });
 
     if (error) {
@@ -108,13 +108,13 @@ export const loginWithOAuth = async (req, res) => {
     }
     return res.status(200).json({ url: data.url });
   } catch (error) {
-    return res.status(500).json(error)
+    return res.status(500).json(error);
   }
 };
 
 export const signout = async (req, res) => {
   try {
-    const { data, error } = await auth.signOut()
+    const { data, error } = await auth.signOut();
 
     res.clearCookie('access_token', {
       httpOnly: true,
@@ -128,11 +128,10 @@ export const signout = async (req, res) => {
     });
 
     if (error) {
-      return res.status(400).json({error})
+      return res.status(400).json({ error });
     }
-    return res.status(201).json({message: "Logged out succesfully", data})
-
+    return res.status(201).json({ message: 'Logged out succesfully', data });
   } catch (error) {
-    return res.status(500).json({message: "Internal server error"})
+    return res.status(500).json({ message: 'Internal server error' });
   }
-}
+};

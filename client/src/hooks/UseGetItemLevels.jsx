@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { server } from '../axios';
 
 export const UseGetItemLevels = () => {
@@ -16,14 +16,15 @@ export const UseGetItemLevels = () => {
         setErrorMessage(message);
         return;
       }
-      console.log('data is valid: ', levels);
+      console.log('UseGetItemLevels data: ', levels);
 
       setItemLevels(levels);
       setErrorMessage('');
     } catch (error) {
-      setIsLoading(false);
       setErrorMessage('An error occured while fetching data');
-      console.log(error);
+      setIsLoading(false);
+      console.log('Error in UseGetItemLevels:', error);
+      return;
     }
   };
   useEffect(() => {

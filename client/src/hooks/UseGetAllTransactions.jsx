@@ -1,36 +1,37 @@
 import { useEffect, useState } from 'react';
 import { server } from '../axios';
 
-export const UseGetAllFavourites = () => {
-  const [favouriteItems, setFavouriteItems] = useState([]);
+export const UseGetAllTransactions = () => {
+  const [transactions, setTransactions] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const getAllFavourites = async () => {
+  const getAllTransactions = async () => {
     try {
       setIsLoading(true);
       const { data, message, error } = (
-        await server.get('/api/item/favourites')
+        await server.get('/api/transactions/all')
       ).data;
-      setIsLoading(false);
+
       if (error) {
         setErrorMessage(message);
         setIsLoading(false);
         return;
       }
-      console.log('UseGetAllFavourites data: ', data);
-
-      setFavouriteItems(data);
+      console.log('UseGetAllItems data: ', data);
+      setTransactions(data);
       setErrorMessage('');
     } catch (error) {
       setErrorMessage('An error occured while fetching data');
       setIsLoading(false);
-      console.log('Error in UseGetAllFavourites:', error);
+      console.log('Error in UseGetAllTransactions:', error);
       return;
     }
   };
+
   useEffect(() => {
-    getAllFavourites();
+    getAllTransactions();
   }, []);
-  return { favouriteItems, errorMessage, isLoading, getAllFavourites };
+
+  return { transactions, errorMessage, isLoading, getAllTransactions };
 };

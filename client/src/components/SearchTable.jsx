@@ -1,9 +1,3 @@
-import { useState } from 'react';
-import { FaRegEdit } from 'react-icons/fa';
-import {
-  MdOutlineCheckBox,
-  MdOutlineCheckBoxOutlineBlank,
-} from 'react-icons/md';
 import { IoCheckboxOutline, IoCheckbox } from 'react-icons/io5';
 import { StatusBadge } from './StatusBadge';
 
@@ -16,42 +10,6 @@ export const SearchTable = ({
   onEditClick,
 }) => {
   const allSelected = items.length > 0 && selectedItems.length === items.length;
-
-  // const renderStatusTag = (status) => {
-  //   {
-  //     switch (status) {
-  //       case 'HIGH':
-  //         return (
-  //           <p className="flex w-fit items-center gap-2 rounded-md border border-green-400 px-3 py-1 text-sm font-semibold text-green-600">
-  //             <div className="size-3 rounded-full bg-green-400 p-2"></div>
-  //             {status}
-  //           </p>
-  //         );
-
-  //       case 'SUFFICIENT':
-  //         return (
-  //           <p className="flex w-fit items-center gap-2 rounded-md border border-amber-400 px-3 py-1 text-sm font-semibold text-amber-400">
-  //             <div className="size-3 rounded-full bg-amber-400 p-2"></div>
-  //             {status}
-  //           </p>
-  //         );
-  //       case 'LOW':
-  //         return (
-  //           <p className="flex w-fit items-center gap-2 rounded-md border border-red-400 px-3 py-1 text-sm font-semibold text-red-600">
-  //             <div className="size-3 rounded-full bg-red-400 p-2"></div>
-
-  //             {status}
-  //           </p>
-  //         );
-  //       default:
-  //         return (
-  //           <p className="w-fit rounded-md border border-orange-400 bg-orange-100 px-3 py-1 text-sm font-semibold text-orange-600">
-  //             {status || 'UNKOWN'}
-  //           </p>
-  //         );
-  //     }
-  //   }
-  // };
 
   return (
     <table className="w-full text-left font-thin">

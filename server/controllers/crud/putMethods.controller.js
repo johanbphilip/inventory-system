@@ -1,9 +1,17 @@
-import { supabase } from "../../utils/dbConn.js";
+import { supabase } from '../../utils/dbConn.js';
 
 export const updateItem = async (req, res) => {
   try {
     const { id } = req.params;
-    const { itemName, quantity, purchasePrice, reorderPoint, storageLocation, category, status  } = req.body;
+    const {
+      itemName,
+      quantity,
+      purchasePrice,
+      reorderPoint,
+      storageLocation,
+      category,
+      status,
+    } = req.body;
     // move to frontend
     // let status;
     // if (quantity > watchPoint) {
@@ -17,19 +25,31 @@ export const updateItem = async (req, res) => {
     // }
     console.log(itemName, quantity, purchasePrice);
 
-    const {data, error} = await supabase.from("inventory").update( {itemName: itemName, quantity: quantity, purchasePrice: purchasePrice,/**  status: status */ reorderPoint: reorderPoint, status:status, storageLocation:storageLocation, category:category}).eq('id',id).select()
+    const { data, error } = await supabase
+      .from('inventory')
+      .update({
+        itemName: itemName,
+        quantity: quantity,
+        purchasePrice: purchasePrice,
+        /**  status: status */ reorderPoint: reorderPoint,
+        status: status,
+        storageLocation: storageLocation,
+        category: category,
+      })
+      .eq('id', id)
+      .select();
 
     if (error) {
-      console.log(error)
-      if(error.code == "23505") {
-        return res.status(409).json({ error, message: "An item with this name already exists" })
+      console.log(error);
+      if (error.code == '23505') {
+        return res
+          .status(409)
+          .json({ error, message: 'An item with this name already exists' });
       }
-      
-      return res.status(400).json({error, message: error.message})
+      return res.status(400).json({ error, message: error.message });
     }
-    
+    await transactionLogger(data[0].id, itemName, 'UPDATE', null, data);
     res.status(200).json(data);
-
   } catch (error) {
     res.status(500).send({ error, message: error.message });
   }
