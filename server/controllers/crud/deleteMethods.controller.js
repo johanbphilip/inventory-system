@@ -1,8 +1,20 @@
 import { supabase } from '../../utils/dbConn.js';
+import { transactionLogger } from '../transactions/transactionLogger.js';
 
 export const deleteItem = async (req, res) => {
   try {
     const { id } = req.params;
+
+    const { data: toDelete } = await supabase
+      .from('inventory')
+      .select()
+      .eq('id', id);
+    await transactionLogger(
+      toDelete[0].id,
+      toDelete[0].itemName,
+      'DELETE',
+      toDelete,
+    );
 
     const { data, error } = await supabase
       .from('inventory')

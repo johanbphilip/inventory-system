@@ -1,4 +1,5 @@
 import { supabase } from '../../utils/dbConn.js';
+import { transactionLogger } from '../transactions/transactionLogger.js';
 
 export const updateItem = async (req, res) => {
   try {
@@ -12,17 +13,7 @@ export const updateItem = async (req, res) => {
       category,
       status,
     } = req.body;
-    // move to frontend
-    // let status;
-    // if (quantity > watchPoint) {
-    //   status = 'High'
-    // } else if (quantity = watchPoint){
-    //   status = 'Sufficient'
-    // } else if (quantity < watchPoint) {
-    //   status = 'Low'
-    // } else if (quantity === 0) {
-    //   status = 'Critical'
-    // }
+
     console.log(itemName, quantity, purchasePrice);
 
     const { data, error } = await supabase
@@ -31,7 +22,8 @@ export const updateItem = async (req, res) => {
         itemName: itemName,
         quantity: quantity,
         purchasePrice: purchasePrice,
-        /**  status: status */ reorderPoint: reorderPoint,
+        status: status,
+        reorderPoint: reorderPoint,
         status: status,
         storageLocation: storageLocation,
         category: category,
@@ -48,7 +40,8 @@ export const updateItem = async (req, res) => {
       }
       return res.status(400).json({ error, message: error.message });
     }
-    await transactionLogger(data[0].id, itemName, 'UPDATE', null, data);
+    console.log('about to run transactionLogger');
+    await transactionLogger(data[0].id, itemName, 'UPDATE', data);
     res.status(200).json(data);
   } catch (error) {
     res.status(500).send({ error, message: error.message });

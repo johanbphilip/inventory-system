@@ -4,7 +4,6 @@ export const transactionLogger = async (
   itemId,
   itemName,
   actionType,
-  oldData,
   newData,
 ) => {
   try {
@@ -12,10 +11,9 @@ export const transactionLogger = async (
       actionType: actionType,
       itemId: itemId,
       itemName: itemName,
-      oldData: oldData,
       newData: newData,
     });
-
+    console.log('inside transactionLogger');
     if (error) {
       console.log(error);
     }

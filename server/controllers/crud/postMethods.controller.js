@@ -40,7 +40,7 @@ export const createNewItem = async (req, res) => {
     }
 
     console.log(data);
-    await transactionLogger(data[0].id, itemName, 'ADD', null, data);
+    await transactionLogger(data[0].id, itemName, 'ADD', data);
     return res
       .status(201)
       .json({ data, message: `Item added to inventory successfully` });
