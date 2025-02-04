@@ -20,9 +20,13 @@ This is a basic inventory system that I created in order to help my workplace di
 - [ ] Make sure page refreshes upon changes
 - [x] Gotta update it so that its in light mode
 - [ ] Add a user account component that will open to a ProfilePage.jsx
-- [ ]Fix Add Item and Update item widgets
+- [ ] Fix Add Item and Update item widgets
+  - [ ] complete Add Item UI
+  - [ ] Complete Add Item Functionality
+  - [ ] Complete Edit Item UI
+  - [ ] Complete Edit Item Functionality
 
-## Possible New Backend Features/Upgrades
+## Backend Features/Upgrades
 
 - [ ] add a param that lets you automate an alert if quantity below certain amount
 - [ ] update status codes, 201 for new resource created and proper error codes

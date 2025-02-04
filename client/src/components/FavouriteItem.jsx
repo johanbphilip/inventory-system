@@ -44,7 +44,7 @@ export const FavouriteItem = () => {
         />
         <div className="flex items-center gap-2">
           <IoMdHeart className="hover:fill-quantHighlight hover:stroke-quantHighlight size-8 hover:cursor-pointer" />
-          <NavLink to={'favourites'}>
+          <NavLink to={'/favourites'}>
             <PiArrowCircleUpRightLight className="hover:fill-quantHighlight size-7 hover:cursor-pointer" />
           </NavLink>
         </div>

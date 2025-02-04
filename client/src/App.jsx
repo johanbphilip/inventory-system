@@ -7,6 +7,7 @@ import { MainLayout } from './layouts/MainLayout';
 import { AllProductsPage } from './pages/AllProductsPage';
 import { FavouritesPage } from './pages/FavouritesPage';
 import { HistoryPage } from './pages/HistoryPage';
+import { AddItemPage } from './pages/AddItemPage';
 
 function App() {
   // return <Dashboard />;
@@ -19,6 +20,7 @@ function App() {
           <Route path="all-products" element={<AllProductsPage />} />
           <Route path="favourites" element={<FavouritesPage />} />
           <Route path="history" element={<HistoryPage />} />
+          <Route path="add-item" element={<AddItemPage />} />
         </Route>
         <Route element={<AuthLayout />}>
           <Route path="login" element={<LoginPage />} />

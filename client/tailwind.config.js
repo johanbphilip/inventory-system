@@ -19,7 +19,7 @@ export default {
       colors: {
         quantDark: '#121212',
         quantHighlight: '#a272ff',
-        quantGray: '#e0dddd',
+        quantGray: '#f5f5f5',
       },
     },
   },

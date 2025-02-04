@@ -132,7 +132,7 @@ export const AddItem = ({ setIsAddItemOpen, onSave }) => {
     category: 'The items type/category',
   };
   return (
-    <div className="fixed inset-0 z-50 flex h-full w-full flex-col items-center justify-between bg-transparent p-60 backdrop-blur-md">
+    <div className=" flex h-full w-full flex-col items-center justify-between bg-transparent p-60 backdrop-blur-md">
       {' '}
       <div className="flex w-full items-center justify-between">
         <h2 className="text-2xl font-bold">Add Item</h2>

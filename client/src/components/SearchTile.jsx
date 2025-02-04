@@ -8,6 +8,7 @@ import { AddItem } from './AddItem';
 import { UseGetAllItems } from '../hooks/UseGetAllItems';
 import { server } from '../axios';
 import { ItemSideBar } from './ItemSideBar';
+import { NavLink, redirect } from 'react-router';
 
 const SearchTile = ({
   items,
@@ -93,11 +94,12 @@ const SearchTile = ({
             )}
             <button
               className="bg-quantDark hover:bg-quantHighlight flex items-center justify-center gap-2 rounded-md px-3 font-light text-white"
-              onClick={() => setIsAddItemOpen((prev) => !prev)}
+              onClick={() => redirect('/add-item')}
             >
               <FaPlus className="size-4" />
               Add Item
             </button>
+            <NavLink to={'/add-item'}>Add Item</NavLink>
           </div>
         </div>
         {isLoading && <p>Finding data...</p>}
@@ -111,12 +113,10 @@ const SearchTile = ({
             onEditClick={handleEditClick}
           />
         )}
-        {/* {isAddItemOpen && (
-          <AddItem setIsAddItemOpen={setIsAddItemOpen} onSave={onSaveAddItem} />
-        )} */}
+        {/* {isAddItemOpen && redirect('/add-item')} */}
         {errorMessage && <p className="text-red-500">{errorMessage}</p>}
       </div>
-      {(editingItem || isAddItemOpen) && (
+      {editingItem && (
         <ItemSideBar
           key={editingItem.id ?? 1}
           item={editingItem}
