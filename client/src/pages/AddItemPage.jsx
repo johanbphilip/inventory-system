@@ -1,6 +1,23 @@
+import { useState } from 'react';
 import { AddItem } from '../components/AddItem';
+import CategorySelector from '../components/CategorySelector';
 
 export const AddItemPage = () => {
+  const [selectedCategory, setSelectedCategory] = useState(' ');
+  const [newCategory, setNewCategory] = useState(' ');
+  const [categories, setCategories] = useState([]);
+  const [showAddCategory, setShowAddCategory] = useState(false);
+
+  const categoryOptions = ['Food', 'Drink', 'Add New'];
+
+  const addCategory = () => {
+    if (newCategory && !categories.includes(newCategory)) {
+      setCategories([...categories, newCategory]);
+      setNewCategory('');
+      setShowAddCategory(false);
+    }
+  };
+
   return (
     <main className="flex flex-col p-4">
       <div className="flex flex-col">
@@ -83,16 +100,33 @@ export const AddItemPage = () => {
                 >
                   Item Category
                 </label>
-                <select
-                  className="rounded-md p-2 focus:outline-quantHighlight"
-                  id="item-category"
-                  name="item-category"
-                >
-                  <option value=""></option>
-                  <option value="FOOD">Food</option>
-                  <option value="DRINK">Drink</option>
-                  <option value="DRINK">Add New</option>
-                </select>
+                <CategorySelector />
+
+                {/* <button onClick={() => setShowAddCategory(true)}>+</button>
+                {showAddCategory ? (
+                  <input
+                    type="text"
+                    value={newCategory}
+                    onChange={(e) => setNewCategory(e.target.value)}
+                    onSubmit={addCategory}
+                  />
+                ) : (
+                  <select
+                    className="rounded-md p-2 focus:outline-quantHighlight"
+                    id="item-category"
+                    name="item-category"
+                    value={selectedCategory}
+                    onChange={(e) => setSelectedCategory(e.target.value)}
+                  >
+                    <option value="" disabled></option>
+
+                    {categoryOptions.map((category) => (
+                      <option key={category} value={category}>
+                        {category}
+                      </option>
+                    ))}
+                  </select>
+                )} */}
               </div>
               <div className="flex flex-col gap-2 w-full">
                 <label

@@ -47,3 +47,22 @@ export const updateItem = async (req, res) => {
     res.status(500).send({ error, message: error.message });
   }
 };
+
+export const updateCategory = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { category } = req.body;
+    const { data, error } = await supabase
+      .from('selections')
+      .update({ options: category })
+      .eq('selectionId', id)
+      .select();
+
+    if (error) {
+      return res.status(400).json({ error, message: error.message });
+    }
+    return res.status(200).json(data);
+  } catch (error) {
+    return res.status(500).json({ error, message: error.message });
+  }
+};
