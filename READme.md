@@ -35,3 +35,8 @@ This is a basic inventory system that I created in order to help my workplace di
 - [ ] Possibly move reorder point status to backend
 - [ ] Create User Roles for Admin, Staff, Volunteers (NOT PRIORITY)
 - [x] Implemenet JSON Web Tokens (JWTs) for authentication
+
+## Edge Case
+
+- [ ] What if someone deleted a storage location/category? How will that reflect with the items that already have that item?
+- [ ] Should I have a create Storage Location/category route? Should that be done at onboarding?
