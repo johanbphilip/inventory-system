@@ -21,7 +21,7 @@ This is a basic inventory system that I created in order to help my workplace di
 - [x] Gotta update it so that its in light mode
 - [ ] Add a user account component that will open to a ProfilePage.jsx
 - [ ] Fix Add Item and Update item widgets
-  - [ ] complete Add Item UI
+  - [x] complete Add Item UI
   - [ ] Complete Add Item Functionality
   - [ ] Complete Edit Item UI
   - [ ] Complete Edit Item Functionality
